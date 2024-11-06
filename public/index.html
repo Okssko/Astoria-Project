@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Astoria Restaurant</title>
+    <meta name="description" content="">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <link rel="stylesheet" href="libs/animate/animate.css">
+
+    <link rel="stylesheet" href="css/main.css">
+
+    <link rel="stylesheet" href="css/media.css">
+
+    <script src="libs/modernizr/modernizr.js"></script>
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+
+    <!--animation-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+
+</head>
+
+<body>
+
+    <!-- Здесь пишем код -->
+
+    <header>
+        <div class="container">
+            <div id="branding">
+                <img src="img/logo.png" alt="Astoriya Logo" class="logo">
+
+                <h1>
+                    <span class="highlight gradient-text">Astoria</span> Restaurant
+                </h1>
+
+            </div>
+
+
+            <!-- Иконка для мобильного меню -->
+            <div class="menu-toggle" id="menu-toggle">
+                <span class="menu-icon">&#9776;</span> <!-- Гамбургер -->
+                <span class="close-icon">&times;</span> <!-- Крестик -->
+            </div>
+
+            <nav>
+                <ul id="nav-list" style=" margin-top:25px;">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#menu">Menu</a></li>
+
+                    <li><a href="menuonline.html">Order online</a></li>
+                    <li><a href="#app">App</a></li>
+                    <li><a href="reservation.html">Reservation</a></li>
+
+                    <li><a href="#footer">Find Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+
+
+            <!-- New About Astoriya content inside the hero -->
+            <div class="about-content">
+
+                <p>Astoriya is a contemporary restaurant that blends traditional flavors with modern culinary techniques.</p>
+
+                <a href="#menu" class="cta-button"> Menu</a>
+                <a href="reservation.html" class="cta-button">Reservation</a>
+            </div>
+
+        </div>
+  
+    </section>
+
+
+
+
+
+
+    <!-- Gallery content will go here -->
+    <section id="gallery">
+
+        <div class="container">
+
+            <div style="text-align: center;">
+                <h1 style="font-size: 2.5em; margin-bottom: 20px;margin-top: 20px;">OUR GALLERY</h1>
+                <div style="max-width: 600px; margin: 0 auto;">
+
+                    <h3></h3>
+                    <br>
+                    <hr style="border: none; border-top: 1px solid #e8491d; margin: 10px 0;">
+                    <br>
+                    <p>Today, our chef will take you on a travel around the world, with an entry from Europe, our best American meat and an authentic dessert from Asia.</p>
+                </div>
+            </div>
+            <div class="gallery-container" style="margin-top: 20px;">
+                <div class="gallery-item">
+                    <img src="img/Restaurant%20Interior.png" alt="Restaurant Interior">
+                    <h3>Restaurant Interior</h3>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Signature%20Dish.png" alt="Signature Dish">
+                    <h3>Signature Dish</h3>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Happy%20Customers.png" alt="Happy Customers">
+                    <h3>Happy Customers</h3>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Chef%20at%20Work.png" alt="Chef at Work">
+                    <h3>Chef at Work</h3>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Outdoor%20Seating.png" alt="Outdoor Seating">
+                    <h3>Outdoor Seating</h3>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Cocktail%20Selection.png" alt="Cocktail Selection">
+                    <h3>Cocktail Selection</h3>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Menu content will go here -->
+
+    <section id="menu">
+
+
+
+        <div style=" padding: 20px; margin-top: -50px; position: relative; z-index: 0; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <img src="https://notbigmuzzy.github.io/codepen/example1/plate1.png" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;" alt="Plate">
+            <div style="text-align: center;">
+                <h1 style="font-size: 2.5em; margin-bottom: 20px;">M E N U</h1>
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <h3 id="currentDate"></h3>
+                    <br>
+                    <hr style="border: none; border-top: 1px solid #000; margin: 10px 0;">
+                    <br>
+                    <p>Today, our chef will take you on a travel around the world, with an entry from Europe, our best American meat and an authentic dessert from Asia.</p>
+                </div>
+            </div>
+        </div>
+        <div id="menuContainer" style="display: flex; flex-wrap: wrap; justify-content: center; padding: 20px; margin-top: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"></div>
+    </section>
+
+    <script>
+        const menuItems = [
+            {
+                title: "LUNCH MENU",
+                hours: "11:30am - 2:30pm",
+                image: "img/lunchmenu.png",
+                pdf: "lunch_menu.pdf"
+            },
+            {
+                title: "DINNER MENU",
+                hours: "5:00pm - Late",
+                image: "img/dinnermenu.png",
+                pdf: "dinner_menu.pdf"
+            },
+            {
+                title: "DESSERT MENU",
+                hours: "11:30am - Late",
+                image: "img/dessertmenu.png ",
+                pdf: "desert.pdf"
+            },
+            {
+                title: "DRINKS MENU",
+                hours: "11:30am - Late",
+                image: "img/drinkmenu.png",
+                pdf: "drinking.pdf"
+            }
+        ];
+
+        function createMenuItems() {
+            const container = document.getElementById('menuContainer');
+            menuItems.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.style.cssText = `
+                                                                            background-color: #f9f9f9;
+                                                                            border-radius: 10px;
+                                                                            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                                                            margin: 10px;
+                                                                            overflow: hidden;
+                                                                            width: 200px;
+                                                                            transition: transform 0.3s ease;
+                                                                        `;
+                menuItem.innerHTML = `
+                                                                            <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 250px; object-fit: cover;">
+                                                                            <div style="padding: 15px;">
+                                                                                <h2 style="margin-top: 0; font-size: 1.2em;">${item.title}</h2>
+                                                                                <p style="color: #666; font-size: 0.9em;">${item.hours}</p>
+                                                                                <button onclick="openPDF('${item.pdf}')" style="
+                                                                                    background-color: #4CAF50;
+                                                                                    border: none;
+                                                                                    color: white;
+                                                                                    padding: 8px 15px;
+                                                                                    text-align: center;
+                                                                                    text-decoration: none;
+                                                                                    display: inline-block;
+                                                                                    font-size: 14px;
+                                                                                    margin-top: 10px;
+                                                                                    cursor: pointer;
+                                                                                    border-radius: 5px;
+                                                                                    transition: background-color 0.3s ease;
+                                                                                ">View Menu</button>
+                                                                            </div>
+                                                                        `;
+                container.appendChild(menuItem);
+            });
+        }
+
+        function openPDF(pdfFile) {
+            window.open(pdfFile, '_blank');
+        }
+
+        createMenuItems();
+
+        // Функция для получения текущей даты
+        function updateDate() {
+            const date = new Date(); // Получаем текущую дату
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const day = date.getDate(); // Получаем день месяца
+            const month = monthNames[date.getMonth()]; // Получаем название месяца
+
+            // Обновляем содержимое заголовка
+            document.getElementById('currentDate').innerText = `${month.toUpperCase()} ${day}`;
+        }
+
+        // Вызов функции при загрузке страницы
+        updateDate();
+
+        // Gallery
+        document.addEventListener('DOMContentLoaded', function () {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            // Используем Intersection Observer для отслеживания появления в области видимости
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show'); // Добавляем класс show для появления
+                        observer.unobserve(entry.target); // Прекращаем наблюдение за элементом
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            // Наблюдаем за каждым элементом галереи
+            galleryItems.forEach(item => {
+                observer.observe(item);
+            });
+        });
+        //app
+        document.addEventListener('DOMContentLoaded', function () {
+            // Находим контейнер секции
+            const appContainer = document.querySelector('.app-container');
+            const appImage = document.querySelector('.app-image img');
+            const appInfo = document.querySelector('.app-info');
+
+            // Настраиваем наблюдатель Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        appContainer.classList.add('show');
+                        appInfo.classList.add('show');
+                        appImage.classList.add('show');
+                        observer.unobserve(entry.target); // Прекращаем наблюдение после показа
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            // Наблюдаем за секцией
+            observer.observe(appContainer);
+        });
+        //header
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navList = document.getElementById('nav-list');
+
+            menuToggle.addEventListener('click', function () {
+                navList.classList.toggle('open');
+                menuToggle.classList.toggle('active');
+            });
+        });
+
+        //
+        // Function to fetch reviews from the server
+        function fetchReviews() {
+            fetch('http://localhost:5000/api/reviews')  // Your API endpoint for fetching all reviews
+                .then(response => response.json())
+                .then(reviews => {
+                    const reviewContainer = document.getElementById('review-container');
+                    reviewContainer.innerHTML = '';  // Clear existing content
+                    reviews.forEach(review => {
+                        const reviewCard = document.createElement('div');
+                        reviewCard.classList.add('review-card');
+
+                        const nameElement = document.createElement('h4');
+                        nameElement.textContent = review.customer_name;
+
+                        const ratingElement = document.createElement('div');
+                        ratingElement.classList.add('star-rating');
+                        ratingElement.textContent = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+
+                        const commentElement = document.createElement('p');
+                        commentElement.textContent = `"${review.comment}"`;
+
+                        reviewCard.appendChild(nameElement);
+                        reviewCard.appendChild(ratingElement);
+                        reviewCard.appendChild(commentElement);
+                        reviewContainer.appendChild(reviewCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching reviews:', error);
+                });
+        }
+
+        // Fetch reviews when the page loads
+        document.addEventListener('DOMContentLoaded', fetchReviews);
+
+        //body
+        // Optional: Add interactivity
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            document.querySelector('.background').style.backgroundPosition = `${x * 100}% ${y * 100}%`;
+        });
+
+    </script>
+    <!--======================================Reviews=============================-->
+
+    <section id="reviews">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 2rem; margin-top:2rem;">Customer Reviews</h1>
+            <div id="review-container" class="review-container">
+                <!-- Existing static reviews -->
+                <div class="review-card">
+                    <h4>John Doe</h4>
+                    <div class="star-rating">★★★★★</div>
+                    <p>"Amazing food and atmosphere! Will definitely come back."</p>
+                </div>
+                <div class="review-card">
+                    <h4>Jane Smith</h4>
+                    <div class="star-rating">★★★★☆</div>
+                    <p>"Great service and delicious dishes. Highly recommended!"</p>
+                </div>
+                <!-- Dynamic reviews will be inserted here -->
+            </div>
+            <div class="review-controls">
+                <button id="prevBtn">Previous</button>
+                <button id="nextBtn">Next</button>
+            </div>
+            <div class="review-form">
+                <h3>Leave a Review</h3>
+                <!-- Button to trigger the review form modal
+                <a href="reviewform.html"><button id="reviewBtn" class="btn-review">Leave a Review</button></a>-->
+                <button id="reviewBtn" class="btn-review">Leave a Review</button>
+                <a href="index.html"><button id="homeBtn" class="btn-review">Home</button></a>
+                <!-- Review Form Modal -->
+                <div id="reviewModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h3>Leave a Review</h3>
+                        <form id="reviewForm" action="" method="post">
+                            <div class="form-group">
+                                <label for="reviewName">Name:</label>
+                                <input type="text" id="reviewName" name="reviewName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reviewRating">Rating:</label>
+                                <select id="reviewRating" name="reviewRating" required>
+                                    <option value="">Select rating</option>
+                                    <option value="5">5 stars</option>
+                                    <option value="4">4 stars</option>
+                                    <option value="3">3 stars</option>
+                                    <option value="2">2 stars</option>
+                                    <option value="1">1 star</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reviewComment">Comment:</label>
+                                <textarea id="reviewComment" name="reviewComment" required></textarea>
+                            </div>
+                            <button type="submit">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+
+                <script>
+                    document.getElementById('reviewForm').addEventListener('submit', function (e) {
+                        console.log('Form submitted');
+                        e.preventDefault();
+
+                        const name = document.getElementById('reviewName').value;
+                        const rating = document.getElementById('reviewRating').value;
+                        const comment = document.getElementById('reviewComment').value;
+
+                        fetch('http://localhost:5000/api/reviews', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                customer_name: name,
+                                rating: parseInt(rating),
+                                comment: comment
+                            }),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Success:', data);
+                                alert('Review submitted successfully!');
+                                document.getElementById('reviewModal').style.display = 'none';
+                                document.getElementById('reviewForm').reset();
+
+                                // Refresh reviews on the main page
+                                if (window.opener && typeof window.opener.fetchReviews === 'function') {
+                                    window.opener.fetchReviews();  // Calls fetchReviews from the index.html window
+                                }
+
+                                window.close();  // Optionally close the form after submission
+                            })
+
+                    });
+
+                    // Get the modal
+                    var modal = document.getElementById("reviewModal");
+
+                    // Get the button that opens the modal
+                    var btn = document.getElementById("reviewBtn");
+
+                    // Get the <span> element that closes the modal
+                    var span = document.getElementsByClassName("close")[0];
+
+                    // When the user clicks the button, open the modal
+                    btn.onclick = function () {
+                        modal.style.display = "block";
+                    }
+
+                    // When the user clicks on <span> (x), close the modal
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                </script>
+
+                <!--end-->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const reviewContainer = document.getElementById('review-container');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        let scrollAmount = 0;
+        const cardWidth = 320; // Width of each card plus margin
+
+        nextBtn.addEventListener('click', () => {
+            scrollAmount += cardWidth;
+            if (scrollAmount > reviewContainer.scrollWidth - reviewContainer.clientWidth) {
+                scrollAmount = 0;
+            }
+            reviewContainer.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            scrollAmount -= cardWidth;
+            if (scrollAmount < 0) {
+                scrollAmount = reviewContainer.scrollWidth - reviewContainer.clientWidth;
+            }
+            reviewContainer.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        // Auto-scroll functionality
+        setInterval(() => {
+            nextBtn.click();
+        }, 5000); // Change slide every 5 seconds
+    </script>
+
+    <!--app-->
+    <section id="app">
+        <div class="container">
+            <div style="text-align: center;">
+                <h1 style="font-size: 2.5em; margin-bottom: 20px;">GET OUR APP</h1>
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <h3>Astoria in Your Pocket</h3>
+                    <br>
+                    <p>Download our app for easy ordering, exclusive deals, and a seamless dining experience.</p>
+                    <br>
+                    <hr style="border: none; border-top: 1px solid; margin: 10px 0;">
+                    <br>
+
+                </div>
+            </div>
+            <div class="app-container">
+
+                <div class="app-info">
+                    <div class="app-links">
+                        <a href="#"><img src="img/applelogo.png" alt="Download on the App Store"></a>
+                        <a href="#"><img src="img/androidapp.png" alt="Get it on Google Play"></a>
+                    </div>
+                </div>
+                <div class="app-image">
+                    <img src="img/app1.png" alt="Astoria App Screenshot">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact" class="contact">
+        <h2 style="            text-align: center;
+            margin-bottom: 2rem;">
+            Contact Us
+        </h2>
+        <hr style="border: none; border-top: 1px solid ; margin: 10px 0;">
+        <a href="contactForm.html"><button id="reviewBtn" class="btn-review">Contact Form</button></a>
+
+
+
+
+
+    </section>
+
+
+		<!-- Footer Section -->
+
+		<footer>
+			<section id="footer">
+			<div class="footer-container">
+				<div class="footer-logo">
+					<img src="img/logo.png" alt="Astoriya Logo">
+				</div>
+
+				<div class="footer-info">
+					<h3>Contact Us</h3>
+					<p>Address: 123 Main St, YourCity, Country</p>
+					<p>Phone: +123 456 7890</p>
+					<p>Email: info@astoriya.com</p>
+					<div class="social-icons">
+						<a href="#"><img src="img/facebook-icon.png" alt="Facebook"></a>
+						<a href="#"><img src="img/instagram-icon.png" alt="Instagram"></a>
+						<a href="#"><img src="img/twitter-icon.png" alt="Twitter"></a>
+					</div>
+				</div>
+
+				<div class="footer-map">
+					<h3>Find Us Here</h3>
+					<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.6730249531194!2d-122.41941558467807!3d37.77492927975985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064d24e9d5f%3A0x85e0c5f5a431dff1!2s123%20Main%20St%2C%20San%20Francisco%2C%20CA%2094105%2C%20USA!5e0!3m2!1sen!2s!4v1604625738103!5m2!1sen!2s"
+							width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+				</div>
+
+			</div>
+
+
+			<p>&copy; 2024 Astoriya Restaurant. All rights reserved.</p>
+
+
+
+
+	</section>
+
+</footer>
+    <script src="js/common.js"></script>
+    <script src="js/connection.js"></script>
+</body>
+</html>

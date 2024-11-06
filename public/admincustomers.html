@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astoriya Admin Dashboard - Customers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .customer-list {
+            margin-top: 20px;
+        }
+        .customer-item {
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>Astoriya Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="adminmenu.html">Menu Management</a></li>
+                <li><a href="adminreservations.html">Reservations</a></li>
+                <li><a href="admincustomers.html" class="active">Customers</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <h1>Customers</h1>
+            <div class="user-info">
+                <span>Admin</span>
+                <button>Logout</button>
+            </div>
+        </header>
+
+        <section class="dashboard">
+            <div class="card">
+                <h3>Total Customers</h3>
+                <p id="customer-count">Loading...</p>
+            </div>
+        </section>
+
+        <section class="customer-list" id="customer-list">
+            <!-- Customers will be populated here -->
+        </section>
+    </main>
+
+    <script>
+        let allCustomers = [];
+
+        // Function to fetch customers from the database
+        function fetchCustomers() {
+            fetch('/api/customers')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    allCustomers = data;
+                    displayCustomers(allCustomers);
+                })
+                .catch(error => {
+                    console.error('Error fetching customers:', error);
+                    document.getElementById('customer-list').innerHTML = `<p>Error fetching customers: ${error.message}</p>`;
+                });
+        }
+
+        // Display customers in the list
+        function displayCustomers(customers) {
+            const customerList = document.getElementById('customer-list');
+            const customerCount = document.getElementById('customer-count');
+
+            customerCount.textContent = `${customers.length} Customers`;
+
+            customerList.innerHTML = '';
+
+            customers.forEach(customer => {
+                const customerItem = document.createElement('div');
+                customerItem.className = 'customer-item';
+                customerItem.innerHTML = `
+                    <p><strong>Name:</strong> ${customer.name}</p>
+                    <p><strong>Email:</strong> ${customer.email}</p>
+                    <p><strong>Created At:</strong> ${new Date(customer.created_at).toLocaleDateString()}</p>
+                `;
+                customerList.appendChild(customerItem);
+            });
+        }
+
+        // Fetch customers when the page loads
+        document.addEventListener('DOMContentLoaded', fetchCustomers);
+    </script>
+</body>
+</html>
+

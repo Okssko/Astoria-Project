@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astoriya Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Astoriya Admin</h2>
+    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="adminmenu.html">Menu Management</a></li>
+            <li><a href="adminreservations.html">Reservations</a></li>
+            <li><a href="#">Orders</a></li>
+
+        </ul>
+    </nav>
+</aside>
+<!-- Main Content -->
+<main class="main-content">
+    <header class="header">
+        <h1>Welcome, Admin</h1>
+        <div class="user-info">
+            <span>Admin</span>
+            <button>Logout</button>
+        </div>
+    </header>
+        <section class="dashboard">
+
+        <div class="card">
+            <h3>Menu Items</h3>
+            <p id="menu-count">Loading...</p>
+        </div>
+
+    </section>
+ <!-- Menu Management Section -->
+    <section class="manage-menu">
+        <h2>Manage Menu</h2>
+
+        <!-- Form for Adding Menu Items -->
+        <form id="menu-form" enctype="multipart/form-data">
+            <input type="text" placeholder="Menu Item Name" name="menu-item" required>
+            <input type="number" step="0.01" placeholder="Price" name="menu-price" required>
+            <input type="text" placeholder="Description" name="menu-description" required>
+            <select name="menu-category" required>
+                <option value="">Select Category</option>
+                <option value="Appetizer">Appetizer</option>
+                <option value="Main Course">Main Course</option>
+                <option value="Dessert">Dessert</option>
+                <option value="Drink">Drink</option>
+            </select>
+            <input type="file" name="menu-image" accept="image/*" required> <!-- Image input field -->
+            <button type="submit">Add Item</button>
+        </form>
+
+
+        <!-- List of Menu Items -->
+        <div class="menu-list">
+            <ul id="menu-items-list">
+                <!-- Menu items will be dynamically populated here -->
+            </ul>
+        </div>
+    </section>
+</main>
+
+<!-- JavaScript to manage menu items -->
+<script src="/js/admin.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

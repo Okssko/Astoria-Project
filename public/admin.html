@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astoriya Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Astoriya Admin</h2>
+    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="adminmenu.html">Menu Management</a></li>
+            <li><a href="adminreservations.html">Reservations</a></li>
+             <li><a href="admincustomers.html">Customers</a></li>
+             <li><a href="adminorders.html">Orders</a></li>
+            <li><a href="adminContacts.html">Contacts</a></li>
+            
+        </ul>
+    </nav>
+</aside>
+
+<!-- Main Content -->
+<main class="main-content">
+    <header class="header">
+        <h1>Welcome, Admin</h1>
+        <div class="user-info">
+            <span>Admin</span>
+            <button>Logout</button>
+        </div>
+    </header>
+
+    <section class="dashboard">
+        <div class="card">
+            <h3>Today's Reservations</h3>
+            <p>10 Reservations</p>
+        </div>
+        <div class="card">
+            <h3>Menu Items</h3>
+            <p id="menu-count">Loading...</p>
+        </div>
+        <div class="card">
+            <h3>Total Orders</h3>
+            <p>100 Orders</p>
+        </div>
+    </section>
+
+<section>
+        <!-- List of Menu Items -->
+        <div class="menu-list">
+            <ul id="menu-items-list">
+                <!-- Menu items will be dynamically populated here -->
+            </ul>
+        </div>
+    </section>
+</main>
+
+<!-- JavaScript to manage menu items -->
+<script src="/js/admin.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
+

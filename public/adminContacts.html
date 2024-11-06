@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astoriya Admin Dashboard - Contacts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>Astoriya Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="adminmenu.html">Menu Management</a></li>
+                <li><a href="adminreservations.html">Reservations</a></li>
+                <li><a href="admincustomers.html" class="active">Contacts</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <h1>Contacts</h1>
+            <div class="user-info">
+                <span>Admin</span>
+                <button>Logout</button>
+            </div>
+        </header>
+
+        <section class="dashboard">
+            <div class="card">
+                <h3>Total Contacts</h3>
+
+            </div>
+        </section>
+
+        <section class="contact-list" id="contact-list">
+            <!-- Contacts will be populated here -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody id="contact-table-body">
+                    <!-- Dynamic content goes here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+
+<script>
+    // Function to fetch and display contacts
+    async function loadContacts() {
+        try {
+            const response = await fetch('/api/contacts');
+            const contacts = await response.json();
+            const contactList = document.getElementById('contact-list');
+
+            contactList.innerHTML = ''; // Clear the current list
+
+            contacts.forEach(contact => {
+                const contactDiv = document.createElement('div');
+                contactDiv.classList.add('contact-card');
+                contactDiv.innerHTML = `
+                    <p><strong>Name:</strong> ${contact.name}</p>
+                    <p><strong>Email:</strong> ${contact.email}</p>
+                    <p><strong>Message:</strong> ${contact.message}</p>
+                    <p><strong>Status:</strong> ${contact.answered ? 'Answered' : 'Pending'}</p>
+                    <button onclick="deleteContact(${contact.id})">Delete</button>
+                    <button onclick="markAsAnswered(${contact.id})">${contact.answered ? 'Mark as Pending' : 'Mark as Answered'}</button>
+                `;
+                contactList.appendChild(contactDiv);
+            });
+        } catch (error) {
+            console.error('Failed to load contacts:', error);
+            document.getElementById('contact-list').innerText = 'Failed to load contacts. Please try again.';
+        }
+    }
+
+    // Load contacts when the page is ready
+    document.addEventListener('DOMContentLoaded', loadContacts);
+
+    // Delete contact function
+    async function deleteContact(id) {
+        if (confirm('Are you sure you want to delete this contact?')) {
+            try {
+                const response = await fetch(`/api/contacts/${id}`, { method: 'DELETE' });
+                if (response.ok) {
+                    alert('Contact deleted successfully');
+                    loadContacts(); // Refresh the list
+                } else {
+                    alert('Failed to delete contact');
+                }
+            } catch (error) {
+                console.error('Error deleting contact:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+    }
+
+    // Mark as Answered function
+    async function markAsAnswered(id) {
+        try {
+            const response = await fetch(`/api/contacts/${id}/answered`, { method: 'PUT' });
+            if (response.ok) {
+                alert('Contact status updated');
+                loadContacts(); // Refresh the list
+            } else {
+                alert('Failed to update contact status');
+            }
+        } catch (error) {
+            console.error('Error updating contact status:', error);
+            alert('An error occurred. Please try again.');
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astoriya Admin Dashboard - Reservations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .reservation-list {
+            margin-top: 20px;
+        }
+        .reservation-item {
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>Astoriya Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="adminmenu.html">Menu Management</a></li>
+                <li><a href="adminreservations.html" class="active">Reservations</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <h1>Reservations</h1>
+            <div class="user-info">
+                <span>Admin</span>
+                <button>Logout</button>
+            </div>
+        </header>
+
+        <section class="dashboard">
+            <div class="card">
+                <h3>Total Reservations</h3>
+                <p id="reservation-count">Loading...</p>
+            </div>
+        </section>
+
+        <section class="filter-section">
+            <label for="filter-date">Filter by date:</label>
+            <input type="date" id="filter-date">
+            <button onclick="filterReservations()">Filter</button>
+        </section>
+
+        <section class="reservation-list" id="reservation-list">
+            <!-- Reservations will be populated here -->
+        </section>
+    </main>
+
+    <script>
+        let allReservations = [];
+
+        // Fetch reservations from the API
+        function fetchReservations() {
+            fetch('/api/reservations')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    allReservations = data; // Store all reservations
+                    displayReservations(allReservations); // Display all reservations
+                })
+                .catch(error => {
+                    console.error('Error fetching reservations:', error);
+                    document.getElementById('reservation-list').innerHTML = `<p>Error fetching reservations: ${error.message}</p>`;
+                });
+        }
+
+        // Display reservations in the list
+        function displayReservations(reservations) {
+            const reservationList = document.getElementById('reservation-list');
+            const reservationCount = document.getElementById('reservation-count');
+
+            // Update reservation count
+            reservationCount.textContent = `${reservations.length} Reservations`;
+
+            // Clear previous reservations
+            reservationList.innerHTML = '';
+
+            // Render each reservation item
+            reservations.forEach(reservation => {
+                const reservationItem = document.createElement('div');
+                reservationItem.className = 'reservation-item';
+                reservationItem.innerHTML = `
+                    <p><strong>Name:</strong> ${reservation.name}</p>
+                    <p><strong>Email:</strong> ${reservation.email}</p>
+                    <p><strong>Date:</strong> ${new Date(reservation.reservation_date).toLocaleDateString()}</p>
+                    <p><strong>Time:</strong> ${reservation.reservation_time}</p>
+                    <p><strong>Guests:</strong> ${reservation.guests}</p>
+                    <p><strong>Phone:</strong> ${reservation.phone}</p>
+                `;
+                reservationList.appendChild(reservationItem);
+            });
+        }
+
+        // Filter reservations by date
+        function filterReservations() {
+            const filterDate = document.getElementById('filter-date').value;
+            if (filterDate) {
+                const filteredReservations = allReservations.filter(reservation =>
+                    new Date(reservation.reservation_date).toISOString().split('T')[0] === filterDate
+                );
+                displayReservations(filteredReservations);
+            } else {
+                displayReservations(allReservations);
+            }
+        }
+
+        // Fetch reservations when the page loads
+        document.addEventListener('DOMContentLoaded', fetchReservations);
+    </script>
+</body>
+</html>

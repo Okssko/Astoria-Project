@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Astoria Restaurant</title>
+    <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+<div class="container">
+ <a id="payInCash" href="orderform.html"><button>Pay in Cash</button></a>
+
+    <h1>Checkout</h1>
+
+    <form id="checkout-form">
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+            <span class="error-message" id="name-error"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error-message" id="email-error"></span>
+        </div>
+        <div class="form-group">
+            <label for="address">Delivery Address:</label>
+            <input type="text" id="address" name="address" required>
+            <span class="error-message" id="address-error"></span>
+        </div>
+        <div class="form-group">
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="card-number" name="card-number" required>
+            <span class="error-message" id="card-number-error"></span>
+        </div>
+        <div class="form-group">
+            <label for="card-expiry">Expiry Date:</label>
+            <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>                 <span class="error-message" id="card-expiry-error"></span>             </div>             <div class="form-group">                 <label for="card-cvc">CVC:</label>                 <input type="text" id="card-cvc" name="card-cvc" required>                 <span class="error-message" id="card-cvc-error"></span>             </div>             <button type="submit">Place Order</button>         </form>         <div id="order-confirmation">             <h3>Order Confirmed!</h3>
+    <p>Thank you for your order. Your delicious food will be on its way soon!</p>
+    <div class="confirmation-details">
+        <p><strong>Order Number:</strong> <span id="order-number"></span></p>
+        <p><strong>Delivery Address:</strong> <span id="confirm-address"></span></p>
+    <p><strong>Estimated Delivery Time:</strong>
+        <span id="delivery-time"></span></p>
+    <h4>Order Summary:</h4>
+    <div id="order-summary"></div>
+    <p><strong>Total:</strong> $<span id="confirm-total"></span></p>
+</div>
+</div>
+</div>
+
+<script>
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        // Simulate order details (in a real app, this would come from the cart)
+        const orderDetails = [
+            { item: "Pizza", quantity: 2, price: 15.99 },
+            { item: "Salad", quantity: 1, price: 8.99 }
+        ];
+        const total = orderDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        const orderData = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            address: formData.get('address'),
+            cardNumber: formData.get('card-number'),
+            cardExpiry: formData.get('card-expiry'),
+            cardCvc: formData.get('card-cvc'),
+            orderDetails: orderDetails,
+            total: total
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/api/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Something went wrong');
+            }
+
+            const result = await response.json();
+
+            // Display order confirmation
+            document.getElementById('order-number').textContent = result.orderId;
+            document.getElementById('confirm-address').textContent = orderData.address;
+            document.getElementById('delivery-time').textContent = new Date(result.estimatedDeliveryTime).toLocaleTimeString();
+
+            const summaryHtml = orderDetails.map(item => `
+                    <p>${item.item} x ${item.quantity}: $${(item.price * item.quantity).toFixed(2)}</p>
+                `).join('');
+            document.getElementById('order-summary').innerHTML = summaryHtml;
+            document.getElementById('confirm-total').textContent = total.toFixed(2);
+
+            document.getElementById('checkout-form').style.display = 'none';
+            document.getElementById('order-confirmation').style.display = 'block';
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error processing order: ' + error.message);
+        }
+    });
+
+    //pay in cash
+
+        document.getElementById('payInCash').addEventListener('click', (e) => {
+        const total = document.getElementById('cartTotal').textContent.split('$')[1]; // Get the total from the cart
+        localStorage.setItem('cartTotal', total); // Store total in localStorage
+    });
+</script>
+</body>
+</html>

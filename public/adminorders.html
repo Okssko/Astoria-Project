@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astoriya Admin Dashboard - Orders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .order-list {
+            margin-top: 20px;
+        }
+        .order-item {
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<aside class="sidebar">
+    <div class="brand">
+        <h2>Astoriya Admin</h2>
+    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="adminmenu.html">Menu Management</a></li>
+            <li><a href="adminreservations.html">Reservations</a></li>
+            <li><a href="adminorder.html" class="active">Orders</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<main class="main-content">
+    <header class="header">
+        <h1>Orders</h1>
+        <div class="user-info">
+            <span>Admin</span>
+            <button>Logout</button>
+        </div>
+    </header>
+
+    <section class="dashboard">
+        <div class="card">
+            <h3>Total Orders</h3>
+            <p id="order-count">Loading...</p>
+        </div>
+    </section>
+
+    <section class="order-list" id="order-list">
+        <!-- Orders will be dynamically loaded here -->
+    </section>
+</main>
+
+<script>
+   // Fetch and display orders
+async function loadOrders() {
+    try {
+        const response = await fetch('/api/orders');
+        const orders = await response.json();
+
+        const orderList = document.getElementById('order-list');
+        const orderCount = document.getElementById('order-count');
+        orderCount.textContent = `${orders.length} Orders`;
+
+        orderList.innerHTML = '';
+
+        orders.forEach(order => {
+            const orderItem = document.createElement('div');
+            orderItem.classList.add('order-item');
+
+            // Parse total and shippingDetails safely
+            const total = order.total ? parseFloat(order.total).toFixed(2) : '0.00';  // Handle null or undefined totals
+            let shippingAddress = 'N/A';
+
+            // Handle shippingDetails in case it's null or invalid JSON
+            try {
+                const shippingDetails = JSON.parse(order.shippingDetails);
+                shippingAddress = shippingDetails.address || 'N/A';
+            } catch (e) {
+                console.warn('Invalid shipping details for order:', order.orderId);
+            }
+
+            orderItem.innerHTML = `
+                <p><strong>Order ID:</strong> ${order.orderId || 'Unknown'}</p>
+                <p><strong>Customer Name:</strong> ${order.customerName || 'N/A'}</p>
+                <p><strong>Total:</strong> $${total}</p>
+                <p><strong>Payment Method:</strong> ${order.paymentMethod || 'N/A'}</p>
+                <p><strong>Shipping Address:</strong> ${shippingAddress}</p>
+                <p><strong>Ordered At:</strong> ${order.createdAt ? new Date(order.createdAt).toLocaleString() : 'N/A'}</p>
+            `;
+            orderList.appendChild(orderItem);
+        });
+    } catch (error) {
+        console.error('Error loading orders:', error);
+        alert('Error loading orders');
+    }
+}
+
+// Load orders when the page is ready
+document.addEventListener('DOMContentLoaded', loadOrders);
+
+</script>
+</body>
+</html>

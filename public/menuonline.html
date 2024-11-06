@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astoria Restaurant - Online Order</title>
+    <link rel="stylesheet" href="css/menuonline.css"/>
+
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <a href="index.html" class="logo" id="homeLink">
+            <div>HOME</div>
+        </a>
+        <img style="width: 6%" src="img/logo.png" alt="Astoriya Logo" class="logo">
+
+        <nav>
+            <ul id="nav-list">
+                <li class="current"><a href="index.html">Home</a></li>
+                <li><a href="#Appetizers">Classical Appetizers</a></li>
+                <li><a href="#main">Classical Main Courses</a></li>
+                <li><a href="#newA">New dishes: Appetizers</a></li>
+                <li><a href="#newM">New dishes: Main</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon" id="cartIcon"> 🛒 <span class="cart-count">0</span></div>
+    </div>
+</header>
+
+<!--================== Cart Modal ==================-->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+        <h2>Your Cart</h2>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-total" id="cartTotal">Total: $0.00</div>
+        <div class="cart-buttons">
+            <button class="cart-button close-cart" id="closeCart">Close</button>
+            <a href="payment.html" class="cart-button" id="proceedToCheckout">Proceed to Checkout</a>
+        </div>
+    </div>
+</div>
+
+<!--================== Login/Signup Modal ==================-->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="closeAuthModal">&times;</span>
+        <div id="authForms">
+            <!-- Login Form -->
+            <div id="loginForm">
+                <h2>Log In</h2>
+                <input type="email" id="loginEmail" placeholder="Email" required><br><br>
+                <input type="password" id="loginPassword" placeholder="Password" required><br><br>
+                <button id="submitLogin">Log In</button>
+                <p>Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+            </div>
+            <!-- Signup Form -->
+            <div id="signupForm" style="display: none;">
+                <h2>Sign Up</h2>
+                <input type="text" id="signupName" placeholder="Full Name" required><br><br>
+                <input type="email" id="signupEmail" placeholder="Email" required><br><br>
+                <input type="password" id="signupPassword" placeholder="Password" required><br><br>
+                <button id="submitSignup">Sign Up</button>
+                <p>Already have an account? <a href="#" id="showLogin">Log In</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--================== Main Content ==================-->
+<main>
+    <section id="Appetizers" class="menu-section">
+        <h1>Classical traditional Appetizers</h1>
+        <div class="menu-items">
+            <div class="menu-item">
+                <img src="img/Brushetta.png" alt="Bruschetta">
+                <div class="menu-item-content">
+                    <h3>Bruschetta</h3>
+                    <p>Toasted bread topped with fresh tomatoes, garlic, and basil.</p>
+                    <div class="menu-item-footer">
+                        <span class="price">$8.99</span>
+                        <button class="add-to-cart" data-name="Bruschetta" data-price="8.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="img/Calamary.png" alt="Calamari">
+                <div class="menu-item-content">
+                    <h3>Calamari</h3>
+                    <p>Crispy fried squid rings served with marinara sauce.</p>
+                    <div class="menu-item-footer">
+                        <span class="price">$10.99</span>
+                        <button class="add-to-cart" data-name="Calamari" data-price="10.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="main" class="menu-section">
+        <h1>Classical traditional Main Courses</h1>
+        <div class="menu-items">
+            <div class="menu-item">
+                <img src="img/Salmon.png" alt="Grilled Salmon">
+                <div class="menu-item-content">
+                    <h3>Grilled Salmon</h3>
+                    <p>Fresh Atlantic salmon fillet grilled to perfection, served with seasonal vegetables.</p>
+                    <div class="menu-item-footer">
+                        <span class="price">$18.99</span>
+                        <button class="add-to-cart" data-name="Grilled Salmon" data-price="18.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="img/beef.png" alt="Beef Parmesan">
+                <div class="menu-item-content">
+                    <h3>Chicken Parmesan</h3>
+                    <p>Breaded chicken breast topped with marinara sauce and melted mozzarella, served with pasta.</p>
+                    <div class="menu-item-footer">
+                        <span class="price">$16.99</span>
+                        <button class="add-to-cart" data-name="Chicken Parmesan" data-price="16.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Appetizers and Main Courses Sections -->
+    <section id="newA" class="menu-section">
+        <h1>New dishes from our chefs Appetizers</h1>
+        <div id="appetizers" class="menu-items">
+            <!-- Dynamic Appetizers will be loaded here -->
+        </div>
+    </section>
+
+    <section id="newM" class="menu-section">
+        <h1>New dishes from our chefs Main Courses</h1>
+        <div id="main-courses" class="menu-items">
+            <!-- Dynamic Main Courses will be loaded here -->
+        </div>
+    </section>
+</main>
+
+<!--================== JavaScript ==================-->
+<script>
+    const cartIcon = document.getElementById('cartIcon');
+    const cartModal = document.getElementById('cartModal');
+    const closeCart = document.getElementById('closeCart');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartCount = document.querySelector('.cart-count');
+    const checkout = document.getElementById('checkout');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const proceedToCheckout = document.getElementById('proceedToCheckout');
+
+    let cart = [];
+
+    // Update cart display
+    function updateCartDisplay() {
+        cartItems.innerHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('cart-item');
+            itemElement.innerHTML = `
+                <span>${item.name} - $${item.price}</span>
+                <button class="remove-item" data-name="${item.name}">Remove</button>
+            `;
+            cartItems.appendChild(itemElement);
+            total += parseFloat(item.price);
+        });
+        cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+        cartCount.textContent = cart.length;
+    }
+
+    // Add to cart functionality
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCartDisplay();
+    }
+
+    // Attach event listeners
+    cartIcon.addEventListener('click', () => {
+        cartModal.style.display = 'block';
+    });
+
+    closeCart.addEventListener('click', () => {
+        cartModal.style.display = 'none';
+    });
+
+    // Attach event delegation to the menu sections
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('add-to-cart')) {
+            const name = e.target.getAttribute('data-name');
+            const price = e.target.getAttribute('data-price');
+            addToCart(name, price);
+        }
+
+        if (e.target.classList.contains('remove-item')) {
+            const name = e.target.getAttribute('data-name');
+            cart = cart.filter(item => item.name !== name);
+            updateCartDisplay();
+        }
+    });
+
+    // New code to save cart to localStorage when proceeding to checkout
+    proceedToCheckout.addEventListener('click', () => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    });
+
+
+
+
+ // Function to load menu items from the backend
+    async function loadMenuItems() {
+        try {
+            const response = await fetch('/api/menu');  // Fetch menu items from backend
+            const menuItems = await response.json();   // Parse JSON response
+
+            const appetizersSection = document.getElementById('appetizers');
+            const mainCoursesSection = document.getElementById('main-courses');
+
+            // Clear previous content
+            appetizersSection.innerHTML = '';
+            mainCoursesSection.innerHTML = '';
+
+            // Loop through the menu items and categorize them
+            menuItems.forEach(item => {
+                const menuItemDiv = document.createElement('div');
+                menuItemDiv.classList.add('menu-item');
+
+                const itemName = item.name || 'Unknown Item';
+                const itemDescription = item.description || 'No description available.';
+                const itemCategory = item.category || 'Uncategorized';
+                const itemPrice = item.price || 'N/A';
+                const imageSrc = item.image ? item.image : 'img/default.png'; 
+                menuItemDiv.innerHTML = `
+                <div class="menu-item-content">
+                <img src="${imageSrc}" alt="${item.name}">
+                    <h3>${itemName}</h3>
+                    <p>${itemDescription}</p>
+                    <div class="menu-item-footer">
+                        <span class="price">$${itemPrice}</span>
+                        <button class="add-to-cart" data-name="${itemName}" data-price="${itemPrice}">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+
+                // Categorize items into "Appetizers" or "Main Courses"
+                if (itemCategory === 'Appetizer') {
+                    appetizersSection.appendChild(menuItemDiv);
+                } else if (itemCategory === 'Main Course') {
+                    mainCoursesSection.appendChild(menuItemDiv);
+                }
+            });
+        } catch (err) {
+            console.error('Error loading menu items:', err);
+        }
+    }
+
+    // Load menu items when the page loads
+    window.onload = () => {
+        loadMenuItems();
+    };
+
+    // Handle login/signup modal
+    document.addEventListener('DOMContentLoaded', () => {
+        const authModal = document.getElementById('authModal');
+        const closeAuthModal = document.getElementById('closeAuthModal');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const showSignup = document.getElementById('showSignup');
+        const showLogin = document.getElementById('showLogin');
+        const submitLogin = document.getElementById('submitLogin');
+        const submitSignup = document.getElementById('submitSignup');
+        const homeLink = document.getElementById('homeLink');
+
+        // Switch to signup form
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+        });
+
+        // Switch to login form
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'block';
+        });
+
+        // Close modal
+        closeAuthModal.addEventListener('click', () => {
+            authModal.style.display = 'none';
+            document.body.style.pointerEvents = 'auto'; // Enable interaction with the page
+        });
+
+        // Handle login
+        submitLogin.addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({email, password})
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', result.token);
+                    authModal.style.display = 'none';
+                    alert('Login successful!');
+                } else {
+                    alert(result.message || 'Login failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Unable to connect to the server. Please try again later.');
+            }
+        });
+
+        // Handle signup
+        submitSignup.addEventListener('click', async () => {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/signup', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name, email, password})
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', result.token);
+                    authModal.style.display = 'none';
+                    alert('Signup successful! You are now logged in.');
+                } else {
+                    alert(result.message || 'Signup failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                alert('Unable to connect to the server. Please try again later.');
+            }
+        });
+
+        // Check if user is already logged in
+        const token = localStorage.getItem('token');
+        if (!token) {
+            authModal.style.display = 'block';
+        }
+
+        // Always allow interaction with the page
+        document.body.style.pointerEvents = 'auto';
+    });
+
+    //
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>log in</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<div id="authModal" class="auth-modal">
+    <div class="auth-modal-content">
+        <span class="auth-close">&times;</span>
+        <div id="loginForm" class="auth-form">
+            <h2>Login</h2>
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+            <div class="auth-toggle">
+                Don't have an account? <a href="#" onclick="toggleAuthForm()">Sign up</a>
+            </div>
+        </div>
+        <div id="signupForm" class="auth-form" style="display:none;">
+            <h2>Sign Up</h2>
+            <input type="text" id="signupName" placeholder="Name" required>
+            <input type="email" id="signupEmail" placeholder="Email" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <button onclick="signup()">Sign Up</button>
+            <div class="auth-toggle">
+                Already have an account? <a href="#" onclick="toggleAuthForm()">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // Get the modal
+    const authModal = document.getElementById('authModal');
+
+    // Get the <span> element that closes the modal
+    const closeBtn = document.getElementsByClassName('auth-close')[0];
+
+    // Function to open the modal
+    function openAuthModal() {
+        authModal.style.display = 'block';
+    }
+
+    // Function to close the modal
+    function closeAuthModal() {
+        authModal.style.display = 'none';
+    }
+
+    // Close the modal when clicking on <span> (x)
+    closeBtn.onclick = closeAuthModal;
+
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+        if (event.target == authModal) {
+            closeAuthModal();
+        }
+    }
+    // Login function
+    async function login() {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            const response = await fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Store the token in localStorage
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('customerId', data.customerId);
+                closeAuthModal();
+                alert('Logged in successfully!');
+            } else {
+                alert(data.message || 'Login failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    }
+
+    // Signup function
+    async function signup() {
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+
+        try {
+            const response = await fetch('http://localhost:3000/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Signed up successfully! Please log in.');
+                toggleAuthForm(); // Switch to login form
+            } else {
+                alert(data.message || 'Signup failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    }
+
+    // Check if customer is logged in
+    function checkAuth() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            openAuthModal();
+            return false;
+        }
+        return true;
+    }
+
+    // Modify your existing checkout function
+    checkout.addEventListener('click', () => {
+        if (checkAuth()) {
+            placeOrder(localStorage.getItem('customerId'), cart, parseFloat(cartTotal.textContent.split('$')[1]))
+                .then(() => {
+                    alert('Thank you for your order!');
+                    cart = [];
+                    updateCartDisplay();
+                    cartModal.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error placing order:', error);
+                    alert('There was an error placing your order. Please try again.');
+                });
+        }
+    });
+</script>
+</html>
